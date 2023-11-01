@@ -1,0 +1,95 @@
+body {
+	background: #f4fbfd;
+}
+.container-fluid{
+	padding-right: 0px;
+}
+.reset-padding{
+	padding: 0px;
+	margin: 0px;
+}
+/* setting header */
+.navbar-brand{
+	padding-left: 30px;
+}
+.navbar{
+	min-height: 69px;
+	background: #f4fbfd;
+	border-bottom: 3px solid #0096d6;
+	
+}
+.navbar-default .navbar-nav>li{
+	margin-top:10px;
+}
+
+.navbar-default .navbar-nav>li>a{
+	font-size: 20px;
+	color: #0096d6;
+}
+.navbar-default .navbar-nav>li>a>img{
+	height: 30px;
+	display: inline;
+}
+.navbar-default .navbar-nav>li>a:hover{
+	color: white;
+	background: #0096d6;
+	border-radius: 30px;
+	
+}
+
+.navbar-default .navbar-nav>.open>a:focus,.navbar-default .navbar-nav>.open>a:hover{
+	color: white;
+	background: #0096d6;
+	border-radius: 30px;
+}
+.navbar-default .navbar-toggle {
+  background-color: #0096d6;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
+	background-color: #0095f5;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: white;
+}
+/*login*/
+.login_wrap{
+	padding-top: 5%;
+}
+.login{
+	padding-top: 20px;
+	padding-bottom: 50px;
+	background: #0096d6;
+	color: white;
+}
+/*register*/
+.background_register{
+	background: #0096d6;
+	color: white;
+}
+.background_register >div{
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+.al-center{
+	padding: 20px;
+	text-align: center;
+}
+
+
+.register_wrap{
+	padding-top: 20px;
+}
+.background_register{
+	padding-bottom: 20px;
+}
+/*footer*/
+.bg-bottom{
+	position: relative;
+	margin:0px;
+	padding: 0px;
+	height: 252px;
+	background: url("../img/background_footer.png");
+}
+footer{
+	background: #0096d6;
+}

@@ -1,0 +1,27 @@
+<article class="container" style="margin-top:80px;">
+      
+			<div class="row">
+				<div class="col-sm-12" style="padding-right: 10px;">
+					<div class="panel panel-default" >
+						  <div class="panel-body">
+						  <center><h1>All University</h1></center>	
+						  	<div class="col-sm-6 col-md-3 ng-scope" ng-repeat="item in getalluniversity.Alluniversity" style="min-width: 200px;">
+			            	<span class="icon-duo-feature">
+				              <div class="thumbnail">
+				              	 <a  ng-click="showinfo" title="ee.jpg" data-gallery="" >
+										        <img ng-src="/static/&#123;&#123; item.universityLogo &#125;&#125;" alt="ee.jpg" class="img-rounded" src="/static/&#123;&#123; item.universityLogo &#125;&#125;">
+										    </a>
+				                <div class="caption text-center">
+				                	
+				                  <p style="word-wrap:break-word;" class="ng-binding">&#123;&#123; item.universityName &#125;&#125;</p>
+				                  <p></p>
+				                  <p><a ng-click="about(item)" class="btn btn-warning" role="button">Read Informaton.</a></p>
+				                </div>
+				              </div>
+			            	</span>
+			            	</div>
+						  </div>
+					</div>
+				</div>
+			</div>
+</article>

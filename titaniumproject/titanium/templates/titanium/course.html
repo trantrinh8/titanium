@@ -1,0 +1,1771 @@
+
+
+<article class="container" style="margin-top:100px;">
+      
+			<div class="row">
+				<div class="col-sm-9" style="padding-right: 10px;">
+				<div class="panel panel-default" >
+					  <div class="panel-body">
+					  	
+						<p  ng-show = "aut ==2 || aut ==3">
+								<a class="btn btn-primary" ng-click="allcourse()">All course</a>
+								<a class="btn btn-primary" ng-click="newclass()" >New Class</a>
+								<a class="btn btn-primary" ng-click="newUnit()" >New Unit</a>
+								<a class="btn btn-primary" ng-click="newQuestion()" >New Question</a>
+								
+						</p>
+						<button type="button" class="btn btn-info btn-block" data-toggle="tooltip" data-placement="right" title="Click here to go to your class" data-original-title="Click here to go to your class" ng-click="showyourclass()"><i class="glyphicon glyphicon-home"></i> My class</button>
+						<div class="alert alert-warning alert-dismissable">
+				              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				              <h4>Welcome to EE learning!</h4>
+				              <p>Hi! you have to try learning ee website. This is a trial version. 
+								you want to go to your classroom, please click on your class and the learning of their classmates. Together to participate 
+								in discussions to help each other learn. Documentation of the class will be uploaded in the archives. 
+								and do not forget to support us to improve the site. thank you</p>
+				              <p><a class="btn btn-warning" href="" ng-click="showyourclass()">My class</a></p>
+				            </div>
+						<!--show mycourse----->
+						<div ng-show ="start == 0">
+						<h1>My Class</h1>
+							<div class="row">
+								<div  ng-repeat="mc in myclass.myclass" class="col-md-4  " title="&#123;&#123;mc.classes.classes.classroomCourse.courseLevel.levelName&#125;&#125;"
+							tooltip
+							data-placement="top"
+							data-toggle="tooltip"
+							data-original-title="&#123;&#123;mc.classes.classes.classroomCourse.courseLevel.levelDescription&#125;&#125;"
+							ng-click ="showmyinformation()">
+								  <center><p>
+									<span class="flag-container"><span class="featured-language-flag &#123;&#123;mc.classes.classes.classroomCourse.courseLevel.levelName&#125;&#125;"></span></span>
+									</p><p>&#123;&#123;mc.classes.classes.classroomCourse.courseName&#125;&#125;  <!--show name of class-->
+							  <span class="badge">&#123;&#123;mc.classes.unit.length&#125;&#125;</span></p>
+								  </center>
+								</div>
+								
+							  </div>
+						<!--end show mycourse-->
+						<!--show my unit in course-->
+						<div class="row" ng-repeat="mc in myclass.myclass">
+								<h2>Exam of &#123;&#123;mc.classes.classes.classroomCourse.courseName &#125;&#125; </h2>
+								<div class="col-md-4" ng-repeat="un in mc.classes.unit"
+								 title="&#123;&#123;mc.classes.classes.classroomCourse.courseName &#125;&#125;"
+								tooltip
+								data-placement="top"
+								data-toggle="tooltip"
+								data-original-title="&#123;&#123;mc.classes.classes.classroomCourse.courseName &#125;&#125;"
+								ng-click ="Loadquestion(un.unit.unit)">
+								  <center><p>
+									<span class="flag-container"><span class="featured-language-flag exam"></span></span>
+									</p><p>&#123;&#123;un.unit.unit.unitName&#125;&#125;  <!--show name of class-->
+								  <span class="badge">&#123;&#123;un.unit.question.length&#125;&#125;</span> <!--Show length of questions in class-->
+								  </p>
+								  </center>
+								</div>
+								
+							  </div>
+						 </div>
+						<!--end show my unit in course-->
+						
+						<div ng-show ="start == 1">
+						<h1>All Level</h1>
+						<div class="row">
+								<div  class="col-md-4 " ng-repeat="level in  course.allLevel" title="&#123;&#123;level.levelName&#125;&#125;"
+							tooltip
+							data-placement="top"
+							data-toggle="tooltip"
+							data-original-title="&#123;&#123;level.levelDescription&#125;&#125;"
+							ng-click = 'showlevel(level)'>
+								  <center><p>
+									<span class="flag-container"><span class="featured-language-flag &#123;&#123;level.levelName&#125;&#125;"></span></span>
+									</p><p>&#123;&#123;level.levelName&#125;&#125;
+							  <span class="badge">42</span></p>
+								  </center>
+								</div>
+								
+							  </div>
+							
+							 <!-- show tất cả các khóa học thuộc level này -->
+							<div class="modal fade" id="showlevel">
+								  <div class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title">&#123;&#123;levelcopy.levelName&#125;&#125;</h4>
+									  </div>
+									  <div class="modal-body">
+										<a class="btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4 " 
+										ng-repeat="clas in  course.allCourse" title="&#123;&#123;clas.courseName&#125;&#125;"
+										tooltip
+										data-placement="top"
+										data-toggle="tooltip"
+										data-original-title="&#123;&#123;clas.courseDescription&#125;&#125;"
+										ng-show = "clas.courseLevel.levelID == levelcopy.levelID"
+										ng-click ="showcourse(clas)"
+										>
+											
+											&#123;&#123;clas.courseName&#125;&#125;
+										  <span class="badge">42</span>
+										  
+										</a>
+									  </div>
+									  <div class="modal-footer">
+										
+									  </div>
+									</div><!-- /.modal-content -->
+								  </div><!-- /.modal-dialog -->
+								</div><!-- /.modal -->
+							<!-- kết thúc show khóa học thuộc level-->
+										
+							
+							
+							
+						   <h1>All Course</h1>
+						   <div class="row">
+								<div  class="col-md-4 " ng-repeat="clas in  course.allCourse" title="&#123;&#123;class.courseName&#125;&#125;"
+								tooltip
+								data-placement="top"
+								data-toggle="tooltip"
+								data-original-title="&#123;&#123;clas.courseDescription&#125;&#125;"
+								ng-click ="showcourse(clas)">
+								  <center><p>
+									<span class="flag-container"><span class="featured-language-flag class"></span></span>
+									</p><p>&#123;&#123;clas.courseName&#125;&#125;
+							  <span class="badge">42</span></p>
+								  </center>
+								</div>
+								
+							  </div>  
+						 
+						<h1>All Skill</h1>
+						<div class="row">
+								<div  class="col-md-4 " ng-repeat="skill in course.allSkill" title="&#123;&#123;skill.typeName&#125;&#125;"
+										tooltip
+										data-placement="top"
+										data-toggle="tooltip"
+										data-original-title="&#123;&#123;skill.typeDescription&#125;&#125;"
+										ng-if="skill.TypeOption == 'skill' "
+										ng-click = "showskill(skill)">
+								  <center><p>
+									<span class="flag-container"><span class="featured-language-flag &#123;&#123;skill.typeName&#125;&#125;"></span></span>
+									</p><p>&#123;&#123;skill.typeName&#125;&#125;
+							  <span class="badge">42</span></p>
+								  </center>
+								</div>
+								
+							  </div>  
+							
+							
+							
+							
+							
+							<!--   Create Question   -->
+							
+						
+						
+						
+						</div>
+					  </div>
+					</div>
+				</div>
+				<div class="col-md-3">
+            <div class="inner">
+                <div class="box-colored boxwhite">
+                    <h2>
+                        <a href="#">
+                            <span data-original-title="Change language" data-toggle="tooltip" class="flag flag-fr-small right"></span>
+                        </a>Your progress</h2>
+                    <div class="sidebar-progress" style="margin-bottom: 0; text-align: center;">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                <span class="sr-only">45% Complete</span>
+                            </div>
+                        </div>
+                        <span class="progress-bar-text">45% Complete</span>
+                    </div>
+                    <div class="sidebar-progress-strength" style="margin-top: 10px; text-align: center;">
+                        <div class="">
+                            <a class="btn btn-block btn-xl btn-blue" href="javascript:;" id="email-link" style="margin-bottom: 15px;">
+                                <span class="icon icon-progress-strength left"></span>
+                                Strengthen Skill
+                            </a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-md-3">
+				<div class="calendar">
+					<div class="years clearfix">
+						<div class="unit prev"><em></em></div>
+						<div class="monyear">MAY 2014</div>
+						<div class="unit next"><em></em></div>
+					</div>
+					<div class="days">
+						<div class="clearfix">
+							<div class="unit">SU</div>
+							<div class="unit">MO</div>
+							<div class="unit">TU</div>
+							<div class="unit">WE</div>
+							<div class="unit">TH</div>
+							<div class="unit">FR</div>
+							<div class="unit">SA</div>
+						</div>
+						<div class="clearfix">
+							<div class="unit older"><b>27</b></div>
+							<div class="unit older"><b>28</b></div>
+							<div class="unit older"><b>29</b></div>
+							<div class="unit older"><b>30</b></div>
+							<div class="unit"><b>1</b></div>
+							<div class="unit"><b>2</b></div>
+							<div class="unit"><b>3</b></div>
+							<div class="unit"><b>4</b></div>
+							<div class="unit"><b>5</b></div>
+							<div class="unit"><b>6</b></div>
+							<div class="unit"><b>7</b></div>
+							<div class="unit"><b>8</b></div>
+							<div class="unit"><b>9</b></div>
+							<div class="unit"><b>10</b></div>
+							<div class="unit"><b>11</b></div>
+							<div class="unit"><b>12</b></div>
+							<div class="unit"><b>13</b></div>
+							<div class="unit active"><b>14</b></div>
+							<div class="unit"><b>15</b></div>
+							<div class="unit"><b>16</b></div>
+							<div class="unit"><b>17</b></div>
+							<div class="unit"><b>18</b></div>
+							<div class="unit"><b>19</b></div>
+							<div class="unit"><b>20</b></div>
+							<div class="unit"><b>21</b></div>
+							<div class="unit"><b>22</b></div>
+							<div class="unit"><b>23</b></div>
+							<div class="unit"><b>24</b></div>
+							<div class="unit"><b>25</b></div>
+							<div class="unit"><b>26</b></div>
+							<div class="unit"><b>27</b></div>
+							<div class="unit"><b>28</b></div>
+							<div class="unit"><b>29</b></div>
+							<div class="unit"><b>30</b></div>
+							<div class="unit"><b>31</b></div>
+							<div class="unit older"><b>1</b></div>
+							<div class="unit older"><b>2</b></div>
+							<div class="unit older"><b>3</b></div>
+							<div class="unit older"><b>4</b></div>
+							<div class="unit older"><b>5</b></div>
+							<div class="unit older"><b>6</b></div>
+							<div class="unit older"><b>7</b></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+</article>
+
+<!-- Model show tất cả các lớp-->
+<div  id="all_course" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	</div>
+	<div class="modal-body">
+		
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       </div>
+    </div>
+  </div>
+</div>
+<!-- Modal set Class-->
+<div class="modal fade" id="class-modal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"> Create Class </h4> <!-- Show name of unit-->
+      </div>
+      <div class="modal-body">
+        <section>
+        	<form name="unitForm">
+        		<div class="form-group">    
+	  				<label for="unitCourse">Level <span class="text-danger">(*)</span></label>
+	        		<select id="levelcourse" ng-model="levelCourse" class="form-control" ng-model="color" ng-options="c.levelName for c in course.allLevel" required>
+				      <option value="">-- choose class --</option>
+				    </select>			    
+  				</div>
+  				<div class="form-group">
+				    <label for="unitName">Name <span class="text-danger">(*)</span></label>
+				    <input type="text" class="form-control" ng-model="courseName" id="unitName" placeholder="Enter Name" required>
+				 </div>
+				 <div class="form-group">
+				    <label for="unitDescription">Description <span class="text-danger">(*)</span></label>
+				    <textarea class="form-control" rows="5" ng-model="courseDescription" id="unitDescription" placeholder="Enter Description" required></textarea>
+				    
+				 </div>
+				 	<input type="hidden" ng-model="unitAuthor" value="{{user.id}}" />
+				 	<input type="hidden" ng-model="unitID" value="0" />
+        	</form>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click='savecourse()'>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal set course-->
+<!-- Modal set Unit-->
+<div class="modal fade" id="unit-modal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"> &#123;&#123; unitModalTitle &#125;&#125; </h4> <!-- Show name of unit-->
+      </div>
+      <div class="modal-body">
+        <section>
+        	<form name="unitForm">
+        		<div class="form-group">    
+	  				<label for="unitCourse">Course <span class="text-danger">(*)</span></label>
+	        		<select id="unitCourse" ng-model="unitCourse" class="form-control" ng-model="color" ng-options="c.courseName for c in allCourse" required>
+				      <option value="">-- choose class --</option>
+				    </select>			    
+  				</div>
+        		<div class="form-group">    
+	  				<label for="unitType">Type  <span class="text-danger">(*)</span></label>
+	        		<select id="unitType" ng-model="unitType" class="form-control" ng-model="color" ng-options="c.typeName for c in unitOption" required>
+				      <option value="">-- choose course --</option>
+				    </select>			    
+  				</div>
+  				<div class="form-group">
+				    <label for="unitName">Name <span class="text-danger">(*)</span></label>
+				    <input type="text" class="form-control" ng-model="unitName" id="unitName" placeholder="Enter Name" required>
+				 </div>
+				 <div class="form-group">
+				    <label for="unitDescription">Description <span class="text-danger">(*)</span></label>
+				    <textarea class="form-control" rows="5" ng-model="unitDescription" id="unitDescription" placeholder="Enter Description" required></textarea>
+				    
+				 </div>
+				 	<input type="hidden" ng-model="unitAuthor" value="{{user.id}}" />
+				 	<input type="hidden" ng-model="unitID" value="0" />
+        	</form>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click='saveunit()'>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal set course-->
+
+
+<!-- Modal Create Question -->
+<form name="Questionform">
+<div class="modal fade" id="question-modal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header clearfix">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"> &#123;&#123; unitModalTitle &#125;&#125; </h4>
+      </div>
+      <div class="modal-body clearfix">
+        <section>
+        	<form name="unitForm">
+        		<div class="form-group">    
+	  				<label for="unitCourse">Unit <span class="text-danger">(*)</span></label>
+	        		<select id="unitCourse" ng-model="questions.questionUnit" class="form-control" ng-model="color" ng-options="c.unitName for c in course.allUnit" required>
+				      <option value="">-- choose unit --</option>
+				    </select>			    
+  				</div>
+        		<div class="form-group">    
+	  				<label for="unitType">Skill <span class="text-danger">(*)</span></label>
+	        		<select id="unitType" ng-model="questions.questionSkill" class="form-control" ng-model="color" ng-options="c.typeName for c in skillOption" required>
+				      <option value="">-- choose skill --</option>
+				    </select>
+				    <div class="form-group" ng-show = "questions.questionSkill.typeKey == 'listening'">
+							    <label for="key">URL file for listening: <span class="text-danger">(*)</span></label>
+							    <input name='input' type="url" class="form-control" ng-model="questions.urlmp3" id="key" placeholder="Enter URL file for listening" required>
+					</div>
+				    			    
+  				</div>
+  				<div class="form-group">    
+	  				<label for="unitType">Type question <span class="text-danger">(*)</span></label>
+	        		<select id="unitType" ng-model="questions.questionType" class="form-control" ng-options="c.typeName for c in questionOption" required>
+				      <option value="">-- choose type --</option>
+				    </select>			    
+  				</div>
+  				<div class="form-group">
+				    <label for="unitName">Question Title <span class="text-danger">(*)</span></label>
+				    <input type="text" class="form-control" ng-model="questions.questionTitle" id="question" placeholder="Enter question title" required>
+				 </div>
+				 <!--<div class="form-group">
+				    <label for="unitDescription">Note <span class="text-danger">(*)</span></label>
+				    <textarea class="form-control" rows="5" ng-model="noteQuestion" id="unitDescription" placeholder="Enter Note" required></textarea>
+				    
+				 </div>-->
+				 
+				 
+				 <!----------- Câu hỏi trắc nghiệm 1 lựa chọn ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'multiplechoicequestions' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+				 		<label>&#123;&#123; questions.contents &#125;&#125;</label>
+				 		<div class="radio" ng-repeat="answer in questions.listAnswer" >
+						    <label>
+						      <input type="radio" name="answerRadios" ng-model="answerChoice" value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;. &#123;&#123; answer.value &#125;&#125;
+						    </label>
+						  </div>
+						 
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			
+						    <label for="key">Answer <span class="text-danger">(*)</span></label>
+						    <div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.key+'. '+a.value&#125;&#125;</p>
+						    </div>
+						    <select id="unitType" ng-model="as" class="form-control" ng-options="c.key+'. '+c.value for c in questions.listAnswer" required>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+						
+				 	</div>
+				 </div>
+				 
+				  <!----------- Câu hỏi dạng lưới mỗi hàng 1 lựa chọn ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'questioneachgridlineoption' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+					 			<table class="table table-hover">
+								      <thead>
+								        <tr>
+								          <th></th>
+								          <th ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</th>
+								        </tr>
+								      </thead>
+								      <tbody>
+								        <tr ng-repeat = 'as in questions.listAnswer' ng-show ='as.key == "row label"'>
+								        <td>&#123;&#123; as.value &#125;&#125;</td>
+								          <td ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'> <input type="radio" value="#123;&#123; answer.value &#125;&#125;" name="&#123;&#123; as.value &#125;&#125;"/></td>
+								        </tr>
+								        
+								      </tbody>
+								    </table>
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							  <label for="key">Label: <span class="text-danger">(*)</span></label>
+							 <select id="unitType" ng-model="answer.key" class="form-control" ng-options="c for c in choice" required>
+						      <option value="">-- choose label --</option>
+						    </select>
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			<label>Answer :</label>
+				 			<div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.column+'. '+a.row&#125;&#125;</p>
+						    </div>
+						    <label for="key">Answer column:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="ascl" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 <div class="form-group">
+				 			
+						    <label for="key">Answer row:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asr" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "row label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 &#123;&#123; ascl &#125;&#125;
+						 &#123;&#123; asr &#125;&#125;
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addcrAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+				 	</div>
+				 </div>
+				 <!----------- Câu hỏi dạng lưới mỗi hàng nhiều lựa chọn ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'eachrowgridquestionmultiplechoice' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+					 			<table class="table table-hover">
+								      <thead>
+								        <tr>
+								          <th></th>
+								          <th ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</th>
+								        </tr>
+								      </thead>
+								      <tbody>
+								        <tr ng-repeat = 'as in questions.listAnswer' ng-show ='as.key == "row label"'>
+								        <td>&#123;&#123; as.value &#125;&#125;</td>
+								          <td ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'> <input type="checkbox" value="#123;&#123; answer.value &#125;&#125;" name="&#123;&#123; answer.value + as.value &#125;&#125;"/></td>
+								        </tr>
+								        
+								      </tbody>
+								    </table>
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							  <label for="key">Label: <span class="text-danger">(*)</span></label>
+							 <select id="unitType" ng-model="answer.key" class="form-control" ng-options="c for c in choice" required>
+						      <option value="">-- choose label --</option>
+						    </select>
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			<label>Answer :</label>
+				 			<div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.column+'. '+a.row&#125;&#125;</p>
+						    </div>
+						    <label for="key">Answer column:<span class="text-danger">(*)</span></label>
+						    
+						    <select id="unitType" ng-model="ascl" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 <div class="form-group">
+				 			
+						    <label for="key">Answer row:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asr" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "row label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 &#123;&#123; ascl &#125;&#125;
+						 &#123;&#123; asr &#125;&#125;
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addcrAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+				 	</div>
+				 </div>
+				 <!----------- Câu hỏi dạng lưới điền từ ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'questionfromagridfilled' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+					 			<table class="table table-hover">
+								      <thead>
+								        <tr>
+								          <th></th>
+								          <th ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</th>
+								        </tr>
+								      </thead>
+								      <tbody>
+								        <tr ng-repeat = 'as in questions.listAnswer' ng-show ='as.key == "row label"'>
+								        <td>&#123;&#123; as.value &#125;&#125;</td>
+								          <td ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'> <input type="text" class="form-control" name="&#123;&#123; answer.value + as.value &#125;&#125;"/></td>
+								        </tr>
+								        
+								      </tbody>
+								    </table>
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							  <label for="key">Label: <span class="text-danger">(*)</span></label>
+							 <select id="unitType" ng-model="answer.key" class="form-control" ng-options="c for c in choice" required>
+						      <option value="">-- choose label --</option>
+						    </select>
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			<label>Answer :</label>
+				 			<div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.column+'. '+a.row&#125;&#125;</p>
+						    </div>
+						    <label for="key">Answer column:<span class="text-danger">(*)</span></label>
+						    
+						    
+						    <select id="unitType" ng-model="ascl" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 <div class="form-group">
+				 			
+						    <label for="key">Answer row:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asr" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "row label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 &#123;&#123; ascl &#125;&#125;
+						 &#123;&#123; asr &#125;&#125;
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addcrAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+				 	</div>
+				 </div>
+				 <!----------- Câu hỏi dạng lưới kết hợp với dạng kéo thả ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'draganddropquestiontypescombinedgrid' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+							<div class="bs-callout bs-callout-danger">
+				 			<ul >
+								<li ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "words to choose"'style="padding-left:10px; float: left;">
+								&#123;&#123; answer.value &#125;&#125;
+								</li>
+								
+							</ul>
+				 			</div>
+					 			<table class="table table-bordered">
+								      <thead>
+								        <tr>
+								          <th></th>
+								          <th ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</th>
+								        </tr>
+								      </thead>
+								      <tbody>
+								        <tr ng-repeat = 'as in questions.listAnswer' ng-show ='as.key == "row label"'>
+								        <td>&#123;&#123; as.value &#125;&#125;</td>
+								          <td>drop here</td>
+								        </tr>
+								        
+								      </tbody>
+								    </table>
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							  <label for="key">Label: <span class="text-danger">(*)</span></label>
+							 <select id="unitType" ng-model="answer.key" class="form-control" ng-options="c for c in choice1" required>
+						      <option value="">-- choose label --</option>
+						    </select>
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			
+				 			
+				 			<label for="key"> Answer:</label>
+				 			<div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.column+'. '+a.row+' .'+a.choose &#125;&#125;</p>
+						    </div>
+						    <label for="key">Answer column:<span class="text-danger">(*)</span></label>
+						    
+						    
+						    <select id="unitType" ng-model="ascl" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 <div class="form-group">
+				 			
+						    <label for="key">Answer row:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asr" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "row label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 <div class="form-group">
+				 			
+						    <label for="key">Words to choose:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asch" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "words to choose"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addcrddAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+				 	</div>
+				 </div>
+				 <!----------- Câu hỏi dạng text -------------------->
+				 
+				 <!----------- Câu hỏi dạng kéo thả theo cột ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'draganddropquestionsincolumnformat' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+							<div class="bs-callout bs-callout-danger">
+				 			<ul >
+								<li ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "words to choose"'style="padding-left:10px; float: left;">
+								&#123;&#123; answer.value &#125;&#125;
+								</li>
+								
+							</ul>
+				 			</div>
+					 			<table class="table table-bordered">
+								      <thead>
+								        <tr>
+								          <th ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</th>
+								        </tr>
+								      </thead>
+								      <tbody>
+								        <tr>
+								          <td ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>drop here</td>
+								        </tr>
+								        
+								      </tbody>
+								    </table>
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							  <label for="key">Label: <span class="text-danger">(*)</span></label>
+							 <select id="unitType" ng-model="answer.key" class="form-control" ng-options="c for c in choice2" required>
+						      <option value="">-- choose label --</option>
+						    </select>
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			
+				 			
+				 			<label for="key"> Answer:</label>
+				 			<div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.column+' - '+a.choose &#125;&#125;</p>
+						    </div>
+						    <label for="key">Answer column:<span class="text-danger">(*)</span></label>
+						    
+						    
+						    <select id="unitType" ng-model="ascl" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 <div class="form-group">
+				 			
+						    <label for="key">Words to choose:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asch" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "words to choose"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addcddAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+				 	</div>
+				 </div>
+				 <!----------- Câu hỏi dạng kéo thả theo hàng ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'questionformdragontheline' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+							<div class="bs-callout bs-callout-danger">
+				 			<ul >
+								<li ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "words to choose"'style="padding-left:10px; float: left;">
+								&#123;&#123; answer.value &#125;&#125;
+								</li>
+								
+							</ul>
+				 			</div>
+					 			<table class="table table-bordered">
+								      <tbody>
+								        <tr ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "row label"'>
+								        	<td >&#123;&#123; answer.value &#125;&#125;</td>
+								          	<td >drop here</td>
+								        </tr>
+								        
+								      </tbody>
+								    </table>
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							  <label for="key">Label: <span class="text-danger">(*)</span></label>
+							 <select id="unitType" ng-model="answer.key" class="form-control" ng-options="c for c in choice3" required>
+						      <option value="">-- choose label --</option>
+						    </select>
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			
+				 			
+				 			<label for="key"> Answer:</label>
+				 			<div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.column+' - '+a.choose &#125;&#125;</p>
+						    </div>
+						    <div class="form-group">
+				 			
+						    <label for="key">Answer row:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asr" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "row label"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 <div class="form-group">
+				 			
+						    <label for="key">Words to choose:<span class="text-danger">(*)</span></label>
+						    <select id="unitType" ng-model="asch" class="form-control" required>
+						    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "words to choose"'>&#123;&#123; answer.value &#125;&#125;</option>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addrddAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+				 	</div>
+				 </div>
+				 </div>
+				 <!----------- Câu hỏi dạng điền từ ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'questionformfillintheword' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+				 			<p>
+					 			<div ng-repeat="answer in questions.listAnswer" ng-hide="answer.key == 'words to choose'">
+					 				 <font ng-bind-html="answer.value"></font><input type='text' name="&#123;&#123; answer.key &#125;&#125;" /><font ng-bind-html="answer.helptext"></font>
+					 				
+					 			</div>
+					 		</p>
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 						 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							  <label for="key">Type: <span class="text-danger">(*)</span></label>
+							 <select id="unitType" ng-model = "answer.key" class="form-control" ng-options="c for c in choicefw" required>
+						      <option value="">-- choose Type --</option>
+						    </select>
+								<div ng-show="answer.key == 'words to choose'">
+								 <div class="form-group">
+								    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+								    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for &#123;&#123; answer.key &#125;&#125;" required>
+								 </div>
+								 <div class="form-group">
+								    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+								    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for &#123;&#123; answer.key &#125;&#125;" required>
+								 </div>
+								 
+								 
+								 </div>
+								 <div ng-show="answer.key == 'form fill'">
+								<div class="form-group">
+								    <label for="key">key for input: <span class="text-danger">(*)</span></label>
+								    <input type="text" class="form-control" ng-model="answer.keyinput" id="key" placeholder="Enter value for answer"  required>
+								 </div>
+								 <div class="form-group">
+								    <label for="key">Text before input &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+								    <textarea class="form-control" ng-trim="false" ng-model="answer.value" id="key" placeholder="Enter text befor input &#123;&#123; answer.key &#125;&#125;" ></textarea>
+								 </div>
+								 <div class="form-group">
+								    <label for="key">Text after input &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+								    <textarea class="form-control" ng-trim="false" ng-model="answer.helptext" id="key" placeholder="Enter Text after input &#123;&#123; answer.key &#125;&#125;" ></textarea>
+								 </div>
+								 </div>
+							 </fieldset>
+				 		
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			<label>Answer :</label>
+				 			<div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a&#125;&#125;</p>
+						    </div>
+						    <select id="unitType" ng-model="askey" class="form-control" required>
+								    	<option ng-repeat="answer in questions.listAnswer" ng-hide ='answer.keyinput == "words to choose"'>&#123;&#123; answer.keyinput &#125;&#125;</option>
+								      <option value="">-- choose answer --</option>
+							</select>
+						    <input type="checkbox" ng-model="checked"><label for="key">Answer words to choose:<span class="text-danger">(*)</span></label>
+						    	<div ng-show="checked">
+								    <select id="unitType" ng-model="ascl" class="form-control" required>
+								    	<option ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "words to choose"'>&#123;&#123; answer.value &#125;&#125;</option>
+								      <option value="">-- choose answer --</option>
+								    </select>
+						    	</div>
+						    	<div ng-hide="checked">
+						    		<div class="form-group">
+									    <label for="keya">Answer for input</label>
+									    <input type="text" class="form-control" ng-model="ascl" id="keya" placeholder="Answer for input"  required>
+								 </div>
+						    		
+						    	</div>
+						    	
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 &#123;&#123;askey &#125;&#125;
+						 &#123;&#123;ascl &#125;&#125;
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=1 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addinddAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+				 	</div>
+				 </div>
+				 
+				 <!----------- Câu hỏi trắc nghiệm 1 lựa chọn hình ảnh ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'thequestionmultiplechoiceimages' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+				 		<label>&#123;&#123; questions.contents &#125;&#125;</label>
+				 		<div class="radio" ng-repeat="answer in questions.listAnswer" >
+						    <label>
+						      <input type="radio" name="answerRadios" ng-model="answerChoice" value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;.
+						       <img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width="100px"/>
+						    </label>
+						  </div>
+						 
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							 <div class="form-group">
+							    <label for="key">URL image for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input name='input' type="url" class="form-control" ng-model="answer.value" id="key" placeholder="Enter URL image for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			
+						    <label for="key">Answer <span class="text-danger">(*)</span></label>
+						    <div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.key+'. '+a.value&#125;&#125;</p>
+						    </div>
+						    <select id="unitType" ng-model="as" class="form-control" ng-options="c.key+'. '+c.value for c in questions.listAnswer" required>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+						
+				 	</div>
+				 </div>
+				 <!----------- Câu hỏi trắc nghiệm 1 lựa chọn hình ảnh ---------->
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'choicequestionsselectedimage' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+				 		<label>&#123;&#123; questions.contents &#125;&#125;</label>
+				 		<div class="checkbox" ng-repeat="answer in questions.listAnswer" >
+						    <label>
+						      <input type="checkbox" name="answerCheckboxs" ng-model="answerChoice" value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;.
+						       <img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width="100px"/>
+						    </label>
+						  </div>
+						 
+						 </fieldset>
+				 	</div>
+				 	<div id="multiplechoicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							 <div class="form-group">
+							    <label for="key">URL image for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input name='input' type="url" class="form-control" ng-model="answer.value" id="key" placeholder="Enter URL image for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			
+						    <label for="key">Answer <span class="text-danger">(*)</span></label>
+						    <div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.key+'. '+a.value&#125;&#125;</p>
+						    </div>
+						    <select id="unitType" ng-model="as" class="form-control" ng-options="c.key+'. '+c.value for c in questions.listAnswer" required>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+						
+				 	</div>
+				 </div>
+				 <!-------------- Câu hỏi trắc nghiệm nhiều lựa chọn------------------>
+				 <div class="question-contents" ng-show="questions.questionType.typeKey == 'choicequestions' ">
+				 	<div class="form-group">
+					    <label for="questionscontents">Content <span class="text-danger">(*)</span></label>
+					    <textarea class="form-control" rows="3" ng-model="questions.contents" id="questionscontents" placeholder="Enter questions contents" required></textarea>
+					 </div>
+				 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">				 		
+				 		<fieldset>
+				 			<h4>Question: &#123;&#123; questions.questionTitle &#125;&#125;</h4>
+				 			<legend>Review</legend>
+				 		<label>&#123;&#123; questions.contents &#125;&#125;</label>
+				 		<div class="checkbox" ng-repeat="answer in questions.listAnswer" >
+						    <label>
+						      <input type="radio" name="answerRadios" ng-model="answerChoice" value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;. &#123;&#123; answer.value &#125;&#125;
+						    </label>
+						  </div>
+						 
+						 </fieldset>
+				 	</div>
+				 	<div id="choicequestions" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 		
+				 		
+				 		<div class="answer" ng-repeat="answer in questions.listAnswer" ng-show="pagination == ($index)">
+				 			<fieldset>
+  									<legend>Choice &#123;&#123; answer.key &#125;&#125;</legend>
+				 			<!--<div class="form-group">
+							    <label for="key">key <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.key" id="key" placeholder="Enter key" required>
+							 </div>-->
+							 <div class="form-group">
+							    <label for="key">Value for choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.value" id="key" placeholder="Enter value for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 <div class="form-group">
+							    <label for="key">Help text for Choice &#123;&#123; answer.key &#125;&#125; <span class="text-danger">(*)</span></label>
+							    <input type="text" class="form-control" ng-model="answer.helptext" id="key" placeholder="Enter help text for choice &#123;&#123; answer.key &#125;&#125;" required>
+							 </div>
+							 </fieldset>
+				 		</div>
+				 		<div class="pagination-component">
+				 			<ul class="pagination">
+							  <li ><a ng-click="paginationChoice('prew')">&laquo;</a></li>
+							  <li ng-repeat="answer in questions.listAnswer" ng-class="{active: pagination == ($index)}"><a ng-click="paginationChoice($index)" >&#123;&#123; $index+1 &#125;&#125;</a></li>
+							  <li><a ng-click="paginationChoice('next')">&raquo;</a></li>
+							</ul>
+				 		</div>
+				 		<div class="form-group">
+				 			
+						    <label for="key">Answer <span class="text-danger">(*)</span></label>
+						    <div ng-repeat='a in questions.answer'>
+						    	<p >&#123;&#123;a.key+'. '+a.value&#125;&#125;</p>
+						    </div>
+						    <select id="unitType" ng-model="as" class="form-control" ng-options="c.key+'. '+c.value for c in questions.listAnswer" required>
+						      <option value="">-- choose answer --</option>
+						    </select>
+						    <!-- <input type="text" class="form-control" ng-model="questions.answer" id="key" placeholder="Enter answer" required> -->
+						 </div>
+						 
+				 		
+				 		<div class="btn-group">
+						  <button type="button" class="btn btn-info" ng-click="addChoiceAnswer()">Add Choice</button>
+						  <button type="button" ng-disabled="questions.listAnswer.length <=2 " class="btn btn-default" ng-click="removeLastChoiceAnswer()">Remove last</button>
+						  <button type="button" class="btn btn-info" ng-click="addAnswer()">Add Answer</button>
+						  <button type="button" class="btn btn-default" ng-click="removeAnswer()">Remove Answer</button>
+						</div>
+						
+				 	</div>
+				 	
+				 </div>
+				 	<input type="hidden" ng-model="unitAuthor" value="{{user.id}}" />
+				 	<input type="hidden" ng-model="unitID" value="0" />
+        	</form>
+        </section>
+      </div>
+      <div class="modal-footer clearfix">
+      	
+      	&#123;&#123; questionTitle &#125;&#125;
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-disabled="" ng-click="savequestion()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Show question modal -->
+<div class="modal fade" id="questions-modal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width: 90%">
+    <div class="modal-content" >
+    	<div class="modal-header clearfix">
+    		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    		<p class="align_c"><center><h2><b> &#123;&#123; modal_title &#125;&#125; </b></h2></center></p>
+
+    		</div>
+    	<div class="modal-body clearfix" style="padding-top: 2%;padding-bottom: 2%;">
+    		
+    		<!--show câu hỏi -->
+    		<div class="col-md-12 start" ng-show='qs_index==-1'>
+    			<img id="rocket" src="/static/images/icon_step.png" />
+    			<center ><a id="start" ng-click="starts()">
+    				Start<br />
+    				&#123;&#123; modal_title &#125;&#125; 
+    			</a></center>
+    			
+    			
+    		</div>
+    		<ul id="slidequestion">
+    		<li ng-repeat = "questionu in question_unit"  class="row" ng-show="qs_index == ($index)">
+    			<div class="modal-left col-md-2"><center><span class="flag-container"><span class="featured-language-flag &#123;&#123;questionu.questionSkill.typeName&#125;&#125;"></span></span><br /><h3>&#123;&#123;questionu.questionSkill.typeName&#125;&#125;</h3></center> </div>
+    		
+    		<div class="questions_wrap  col-md-7" style="padding: 4%; padding-left: 8%; border: solid 1px #8CC152;">
+    		<div class="col-md-4"   ng-show="questionu.questionContents.urlmp3">
+    			<img src="/static/images/voice_icon.png" class="audio" ng-mouseover="audio(questionu.questionContents.urlmp3)"> 
+			</div>
+			<br />
+    		<p>  &#123;&#123; questionu.questionTitle &#125;&#125;</p>
+    		</br>
+    		<p><b>	&#123;&#123; questionu.questionContents.contents &#125;&#125; </b></p>
+    		<!-- câu hỏi nhiều lựa chọn-->
+    		<div class="question-contents" ng-show="questionu.questionType.typeKey == 'choicequestions' ">
+				 		<div class="radio" ng-repeat="answer in questionu.questionContents.listAnswer" >
+						    <label>
+						      <input type="radio" name="answerRadios"  ng-model="questionu.youranswer" value="&#123;&#123; answer.value  &#125;&#125;" style="zoom: 150%;"> &#123;&#123; answer.key &#125;&#125;. &#123;&#123; answer.value &#125;&#125;
+						    </label>
+						  </div>
+						 </fieldset>
+						 <!--thông báo điểm-->
+						 <div class="col-md-12">
+					            <div class="alert alert-success alert-dismissable" ng-show='flag_score ==1'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Success!</h4>
+					              <p style="font-size: 120%;">The answer is <b>&#123;&#123;questionu.questionContents.answer[0].value&#125;&#125;</b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					            <div class="alert alert-danger alert-dismissable" ng-show='flag_score ==2'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Oh no!</h4>
+					              <p style="font-size: 120%;">The answer is <b>&#123;&#123;questionu.questionContents.answer[0].value&#125;&#125;</b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					          </div>
+				 	</div>
+				 	
+			<!--câu hỏi nhiều lựa chọn-->
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'multiplechoicequestions' ">
+				 		<div class="radio" ng-repeat="answer in questionu.questionContents.listAnswer" >
+						    <label>
+						      <input type="checkbox" style="zoom: 150%;" name="answerRadios" ng-model="values[answer.value]" value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;. &#123;&#123; answer.value &#125;&#125;
+						    </label>
+						  </div>
+					<!--thông báo điểm-->
+						 <div class="col-md-12">
+					            <div class="alert alert-success alert-dismissable" ng-show='flag_score ==1'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Success!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.answer"> &#123;&#123;item.value&#125;&#125; </b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					            <div class="alert alert-danger alert-dismissable" ng-show='flag_score ==2'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Oh no!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.answer"> &#123;&#123;item.value&#125;&#125; </b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					          </div>
+				 	</div>
+			<!--câu hỏi lựa chọn hình ảnh-->
+			<div class="question-contents col-md-12 " ng-show="questionu.questionType.typeKey == 'choicequestionsselectedimage' ">
+				 		<!--<div class="radio " style="zoom: 150%;" ng-repeat="answer in questionu.questionContents.listAnswer" >
+				 					
+				 				<input type="radio" name="&#123;&#123; answer.key &#125;&#125;"  value="&#123;&#123; answer.value &#125;&#125;" ng-model="questionu.youranswer" ><img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width='100px'/>
+						      		
+						 </div>-->
+						  <div class="col-sm-6 col-md-4" ng-repeat="answer in questionu.questionContents.listAnswer">
+				              <div class="thumbnail">
+				                <img class="img-rounded" src="&#123;&#123; answer.value &#125;&#125; ">
+				                <div class="caption text-center">
+				                  <h3><input type="radio" name="&#123;&#123; answer.key &#125;&#125;" style="zoom: 150%;" value="&#123;&#123; answer.value &#125;&#125;" ng-model="questionu.youranswer" ></h3>
+				                </div>
+				              </div>
+            </div>
+			<!--thông báo điểm-->
+						 <div class="col-md-12">
+					            <div class="alert alert-success alert-dismissable" ng-show='flag_score ==1'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Success!</h4>
+					              <p style="font-size: 120%;">The answer is <img src="&#123;&#123;questionu.questionContents.answer[0].value&#125;&#125;" height="100px" width="100px"/></p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					            <div class="alert alert-danger alert-dismissable" ng-show='flag_score ==2'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Oh no!</h4>
+					              <p style="font-size: 120%;">The answer is <img src="&#123;&#123;questionu.questionContents.answer[0].value&#125;&#125;" height="100px" width="100px"/>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					         </div>			 
+			</div>
+			<!--câu hỏi nhiều lựa chọn hình ảnh-->
+						<div class="question-contents col-md-12" ng-show="questionu.questionType.typeKey == 'thequestionmultiplechoiceimages' ">
+				 		<!--<div class="radio" style="zoom: 150%;" ng-repeat="answer in questionu.questionContents.listAnswer" >
+						    <label>
+						      <input type="checkbox"  ng-model="values[answer.value]" name="answerRadio"  value="&#123;&#123; answer.value &#125;&#125;"> <img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width='100px'/>
+						    </label>
+						 </div>-->
+						  <div class="col-sm-6 col-md-4" ng-repeat="answer in questionu.questionContents.listAnswer">
+				              <div class="thumbnail">
+				                <img class="img-rounded" src="&#123;&#123; answer.value &#125;&#125; ">
+				                <div class="caption text-center">
+				                  <h3><input type="checkbox"  ng-model="values[answer.value]" name="answerRadio"  value="&#123;&#123; answer.value &#125;&#125;" style="zoom: 150%;" ></h3>
+				                </div>
+				              </div>
+				          </div>
+					<!--thông báo điểm-->
+						 <div class="col-md-12">
+					            <div class="alert alert-success alert-dismissable" ng-show='flag_score ==1'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Success!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.answer"> <img src="&#123;&#123;item.value&#125;&#125;" height="100px" width="100px"/> </b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					            <div class="alert alert-danger alert-dismissable" ng-show='flag_score ==2'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Oh no!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.answer"> <img src="&#123;&#123;item.value&#125;&#125;" height="100px" width="100px"/> </b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					          </div>	 
+			</div>
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'questioneachgridlineoption' ">
+				this is the question each grid line option
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th></th>
+								<th ng-repeat="answer in questionu.questionContents.listAnswer" ng-show ='answer.key == "column label"'>&#123;&#123; answer.value &#125;&#125;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat = 'as in questionu.questionContents.listAnswer' ng-show ='as.key == "row label"'>
+							<td>&#123;&#123; as.value &#125;&#125;</td>
+							<td ng-repeat="answer in questions.listAnswer" ng-show ='answer.key == "column label"'> <input type="radio" value="#123;&#123; answer.value &#125;&#125;" name="&#123;&#123; as.value &#125;&#125;"/></td>
+						</tr>
+								        
+					</tbody>
+				</table>
+				 		
+						 
+			</div>
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'eachrowgridquestionmultiplechoice' ">
+				this is the each row grid question multiplechoice
+				 		<div class="radio" ng-repeat="answer in questionu.questionContents.listAnswer" >
+						    <label>
+						      <input type="checkbox" name="&#123;&#123; answer.key &#125;&#125;"  value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;. <img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width='100px'/>
+						    </label>
+						  </div>
+						 
+			</div>
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'questionfromagridfilled' ">
+				this is the question from agrid filled
+				 		<div class="radio" ng-repeat="answer in questionu.questionContents.listAnswer" >
+						    <label>
+						      <input type="checkbox" name="&#123;&#123; answer.key &#125;&#125;"  value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;. <img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width='100px'/>
+						    </label>
+						  </div>
+						 
+			</div>
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'draganddropquestiontypescombinedgrid' ">
+				this is the drag and drop question types combined grid
+				 		<div class="radio" ng-repeat="answer in questionu.questionContents.listAnswer" >
+						    <label>
+						      <input type="checkbox" name="&#123;&#123; answer.key &#125;&#125;"  value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;. <img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width='100px'/>
+						    </label>
+						  </div>
+						 
+			</div>
+			<!-- Câu hỏi dạng điền từ-->
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'questionformfillintheword' ">
+						<div class="col-md-12">
+							<div class="col-md-4 color-swatch brand-danger" ng-repeat="answer in questionu.questionContents.listAnswer" ng-show="answer.key == 'words to choose'">
+								<b>&#123;&#123; answer.value &#125;&#125;</b>
+							</div>
+						</div>
+						<p>
+				 		<font class="radio" ng-repeat="answer in questionu.questionContents.listAnswer" ng-hide="answer.key == 'words to choose'" >
+						       <font ng-bind-html="answer.value"></font><input type="text" ng-model="values['field_' + $index]"><font ng-bind-html="answer.helptext"></font> 
+						  </font>
+						</p>
+						<div class="col-md-12">
+					            <div class="alert alert-success alert-dismissable" ng-show='flag_score ==1'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Success!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.listAnswer" ng-show="item.key=='form fill'">  &#123;&#123;item.keyinput&#125;&#125;</b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					            <div class="alert alert-danger alert-dismissable" ng-show='flag_score ==2'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Oh no!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.listAnswer" ng-show="item.key=='form fill'">  &#123;&#123;item.keyinput&#125;&#125;  </b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					          </div>  
+			</div>
+			<!--câu hỏi dạng kéo thả-->
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'draganddropquestionsincolumnformat' ">
+				 		
+				 		<!-- <div class="navbar-inner">
+					        <div class="container form-inline" style="text-align: center;">
+					          <div class="btn btn-droppable" ng-repeat="answer in questionu.questionContents.listAnswer" data-drop="true" ng-model='list5' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list5])'}"  jqyoui-droppable="{index: #&123;#&123;$index#&125;#&125;}">
+					            <div class="btn btn-info btn-draggable" data-drag="#&123;#&123;item.value#&125;#&125;" data-jqyoui-options="{revert: 'invalid'}" ng-model="list5" jqyoui-draggable="{index: #&123;#&123;$index#&125;#&125;,placeholder:true,animate:true}" ng-hide="!item.title">#&123;#&123;item.value#&125;#&125;</div>
+					          </div>
+					        </div>
+					   </div>-->
+						 <div class="bs-callout bs-callout-danger">
+				 			<ul >
+								<li ng-repeat="answer in questionu.questionContents.listAnswer" ng-show ='answer.key == "words to choose"'style="padding-left:10px; float: left;" class="btn btn-primary btn-draggable" data-drag="true" 
+								data-jqyoui-options="{revert: 'invalid'}" ng-model="answer" jqyoui-draggable="{animate:true}"> &#123;&#123;answer.value&#125;&#125;
+								</li>
+								
+							</ul>
+				 			</div>
+				 			<!--table iput-->
+					 			<table class="table table-bordered">
+								      <thead>
+								        <tr>
+								          <th ng-repeat="answer in questionu.questionContents.listAnswer" ng-show ='answer.key == "column label"' >&#123;&#123; answer.value &#125;&#125;</th>
+								       &#123;&#123;values[answer.value]&#125;&#125; 
+								       </tr>
+								      </thead>
+								      <tbody>
+								        <tr>
+								          <td ng-repeat="answer in questionu.questionContents.listAnswer" ng-show ='answer.key == "column label"' >
+								          	<div class="thumbnail" data-drop="true" ng-model='questionu.youranswer[answer.value]' data-jqyoui-options="{accept:'.btn-draggable:not([data=&#123;&#123; answer.value &#125;&#125;])'}" 
+								          	 jqyoui-droppable="{multiple:true}">
+									             <div class="caption">
+									                 <div class="btn btn-info btn-draggable" ng-repeat="item in questionu.youranswer[answer.value]" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" 
+									                ng-model='questionu.youranswer[answer.value]' data="&#123;&#123;answer.value&#125;&#125;"  jqyoui-draggable="{index: &#123;&#123;$index&#125;&#125;,animate:true}">&#123;&#123;item.value&#125;&#125;</div>
+									              </div>
+									              </div>
+								          </td>
+								        </tr>
+								        
+								      </tbody>
+								    </table>
+								<div class="col-md-12">
+								<div class="alert alert-success alert-dismissable" ng-show='flag_score ==1'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Success!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.answer" >  &#123;&#123;item.choose&#125;&#125;(&#123;&#123;item.column&#125;&#125;) </b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					            <div class="alert alert-danger alert-dismissable" ng-show='flag_score ==2'>
+					              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					              <h4>Oh no!</h4>
+					              <p style="font-size: 120%;">The answer is <b ng-repeat="item in questionu.questionContents.answer">  &#123;&#123;item.choose&#125;&#125;(&#123;&#123;item.column&#125;&#125;) </b>.</p>
+					              <p style="font-size: 120%;">The score is <b>&#123;&#123;score_show&#125;&#125; %</b> .</p>
+					            </div>
+					          </div>  
+			</div>
+			<div class="question-contents" ng-show="questionu.questionType.typeKey == 'questionformdragontheline' ">
+				this is the question form drag on the line
+				 		<div class="radio" ng-repeat="answer in questionu.questionContents.listAnswer" >
+						    <label>
+						      <input type="checkbox" name="&#123;&#123; answer.key &#125;&#125;"  value="&#123;&#123; answer.key &#125;&#125;"> &#123;&#123; answer.key &#125;&#125;. <img src= '&#123;&#123; answer.value &#125;&#125;' height="100px" width='100px'/>
+						    </label>
+						  </div>
+						 
+			</div>
+			</div>
+			<div class="col-md-3 right_modal" ng-hide="question_unit.length+1 == qs_index">
+				<center>
+					<p class="align_c"><a class="btn btn-success" ng-click="check(questionu,values,question_unit.length,$index)" ng-show ="done==0">Check.</a></p>
+					<p class="align_c"><a class="btn btn-warning" ng-click="continues()" ng-show ="done==1">continue.</a></p>
+			
+				</center>
+			
+			</div>
+			
+		</li> 
+		</ul> 
+		
+		<div ng-show="question_unit.length==qs_index" class="col-md-12 score">
+			<center>
+				<span class="flag-container"><span class="featured-language-flag gold"></span></span><br />
+				<h2 >your score: &#123;&#123; finalscore &#125;&#125;%</h2>
+			</center>
+			
+		</div>
+		
+			
+			
+			
+				</div>
+		
+    		</div>
+		</div>
+	</div>
+</div>
+</form>
+
+
+<!--phần dưới-->
+</article>
+		<div class="container" style="margin-top: 30px;margin-bottom: 30px;color: #9999af;">
+      <!-- Example row of columns -->
+	  <div class="row">
+		<center><b><h2>EE learning have courses in</h2></b></center>
+	  </div>
+      <div class="row" >
+        <div class="col-md-4">
+          <center><p>
+		    <span class="flag-container"><span class="featured-language-flag egg"></span></span>
+			<p>English for Beginners</p>
+		  </p>
+          </center>
+        </div>
+        <div class="col-md-4">
+          <center><p>
+		    <span class="flag-container"><span class="featured-language-flag sp"></span></span>
+			<p>English for Specific Purposes</p>
+		  </p>
+          </center>
+       </div>
+        <div class="col-md-4">
+          <center><p>
+		    <span class="flag-container"><span class="featured-language-flag tc"></span></span>
+			<p>English for Beginners</p>
+		  </p>
+          </center>
+        </div>
+      </div>
+	  
+    </div> <!-- /container -->
+	<div class="section-features" style="padding-top: 50px;padding-bottom: 50px;min-height:250px">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+				<center><p>
+                    <span class="icon-duo-feature guide intro"></span>
+                    <p>Guide by experience teachers</p>
+				</p>
+				</center>
+				</div>
+				
+				<div class="col-md-4">
+				<center><p>
+                    <span class="icon-duo-feature heart intro"></span>
+                    <p>Always free</p>
+				</p>
+				</center>
+				</div>
+				
+				<div class="col-md-4">
+				<center><p>
+                    <span class="icon-duo-feature mobile intro"></span>
+                    <p>Ready on the go</p>
+				</p>
+				</center>
+				</div>
+			</div>
+		</div>
+	 </div>

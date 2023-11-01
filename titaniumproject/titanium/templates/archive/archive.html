@@ -1,0 +1,194 @@
+
+<div class="wrapper row">
+	
+    <section id="main" class="main-right">
+    	<div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h4>Success!</h4>
+              <p style="font-size: 120%">you changed your avatar success! Please click the reload to complete the process of changing your avatar!</p> 
+              
+              <p><a class="btn btn-success" href="/">reload</a></p>
+            </div>
+    	<div class="panel panel-default col-xs-10 col-sm-10 col-md-10 col-lg-10"  >
+		  <div class="panel-body">
+		
+		  	<!-- Button trigger modal -->
+				<button class="btn btn-primary btn-lg" data-toggle="modal" ng-click = "newupload()">
+				  upload file
+				</button>
+				<!--image-->
+				<div class="example">
+        <h2 class="example-title">Thumbnails</h2>
+        <div class="row">
+            <div class="col-sm-6 col-md-3" ng-repeat = "file in myfile.files" style="min-width: 200px;">
+            	<span class="icon-duo-feature">
+              <div class="thumbnail">
+              	 <a href="/static/&#123;&#123;file.fileName&#125;&#125;" title="&#123;&#123;file.fileName&#125;&#125;" data-gallery ng-show="file.fileType =='image'">
+						        <img ng-src="/static/&#123;&#123;file.fileName&#125;&#125;" alt="&#123;&#123;file.fileName&#125;&#125;" class="img-rounded">
+						    </a>
+                <div class="caption text-center">
+                	</span>
+                  <p style="word-wrap:break-word;">&#123;&#123;file.fileName&#125;&#125;</p>
+                  <p></p>
+                  <p><a ng-click="setavatar(file.fileID)" class="btn btn-warning" role="button">set avatar</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+				
+				
+				  <div class="bs-callout bs-callout-info">
+				    <h4>IMAGE</h4>
+				    <p>
+				    	<div id="links">
+							<div ng-repeat = "file in myfile.files" >
+						    <a href="/static/&#123;&#123;file.fileName&#125;&#125;" title="&#123;&#123;file.fileName&#125;&#125;" data-gallery ng-show="file.fileType =='image'">
+						        <img ng-src="/static/&#123;&#123;file.fileName&#125;&#125;" alt="&#123;&#123;file.fileName&#125;&#125;" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						    </a>
+						</div>
+					</div>
+					</p>
+				  </div>				
+				 <div class="bs-callout bs-callout-info">
+				    <h4>PDF</h4>
+				    
+				    <p>
+				    	<div ng-repeat = "file in myfile.files" >
+				    		<a href="/static/&#123;&#123;file.fileName&#125;&#125;" ng-show="file.fileType =='pdf'">
+						        <img ng-src="/static/images/logo-adobe-pdf.jpg" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						    </a>
+				    	</div>
+				    </p>
+				    
+				  </div>
+				<div class="bs-callout bs-callout-info">
+				    <h4>MP3</h4>
+				    
+				    <p>
+				    	<div ng-repeat = "file in myfile.files" >
+				    		<a href="/static/&#123;&#123;file.fileName&#125;&#125;" ng-show="file.fileType =='mp3'">
+				    			<audio ng-src="/static/&#123;&#123;file.fileName&#125;&#125;" controls>
+								  <source ng-src="/static/&#123;&#123;file.fileName&#125;&#125;" type="audio/ogg">
+								  <source ng-src="/static/&#123;&#123;file.fileName&#125;&#125;" type="audio/mpeg">
+								Your browser does not support the audio element.
+								</audio>
+						    </a>
+				    	</div>
+				    </p>
+				    
+				  </div>
+				<div class="bs-callout bs-callout-info">
+				    <h4>File</h4>
+				    
+				    <p>
+				    	<div ng-repeat = "file in myfile.files" >
+				    		<a href="/static/&#123;&#123;file.fileName&#125;&#125;" ng-show="file.fileType =='other'">
+						        <img ng-src="/static/images/file-icon.png" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						    </a>
+				    	</div>
+				    </p>
+				    
+				  </div>
+				  
+				  
+				 
+				<!-- Modal -->
+				<div id="uploadercontent" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				      </div>
+				      <div class="modal-body" style="background-color: white;">
+				      	<div class="col-md-12" style="background-color: white;">
+				       		<input type="file" nv-file-select uploader="uploader" />
+					        
+					        <div class="col-md-9" style="margin-bottom: 40px">
+                    <p class="ng-binding">Queue length: &#123;&#123;uploader.queue.length&#125;&#125;</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="50%">Name</th>
+                                <th ng-show="uploader.isHTML5">Size</th>
+                                <th ng-show="uploader.isHTML5">Progress</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ngRepeat: item in uploader.queue --><tr ng-repeat="item in uploader.queue" class="ng-scope">
+                                <td>
+                                    <strong class="ng-binding">&#123;&#123; item.file.name &#125;&#125;</strong>
+                                    <!-- Image preview -->
+                                    <!--auto height-->
+                                    <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                    <!--auto width-->
+                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"><canvas width="133.33333333333331" height="100"></canvas></div>
+                                    <!--fixed width and height -->
+                                    <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                </td>
+                                <td ng-show="uploader.isHTML5" nowrap="" class="ng-binding">&#123;&#123; item.file.size/1024/1024|number:2 &#125;&#125;</td>
+                                <td ng-show="uploader.isHTML5">
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }" style="width: 0%;"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span ng-show="item.isSuccess" style="display: none;"><i class="glyphicon glyphicon-ok"></i></span>
+                                    <span ng-show="item.isCancel" style="display: none;"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                    <span ng-show="item.isError" style="display: none;"><i class="glyphicon glyphicon-remove"></i></span>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>  
+					
+		  </div>
+		 </div>
+	</section>
+</div>
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ </article>
+		

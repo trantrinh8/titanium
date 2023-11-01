@@ -1,0 +1,12 @@
+.article{
+	padding-top: 100px;
+	height: 600px;
+}
+#title{
+	position: relative;
+	top: 150px;
+	left: 250px;
+}
+ul li{
+	list-style: none;
+}

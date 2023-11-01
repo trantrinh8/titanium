@@ -1,0 +1,75 @@
+<article class="container" style="margin-top:100px;">
+      
+			<div class="row">
+				<div class="col-sm-9" style="padding-right: 10px;">
+					<div class="panel panel-default"  >
+						  <div class="panel-body">
+						  	<div class="example">
+		<center><h2 class="example-title">TimeLine</h2></center>
+        <div class="row">
+		  <div class="col-md-12" ng-repeat = 'item in myactivity.myactivity'>
+			  <div class="timeline">
+				  <dl>
+					  <dt>&#123;&#123; item.answerCreated &#125;&#125;</dt>
+					  <dd class="pos-right clearfix" ng-show="$index%2==0">
+					  	<div class="col-md-6" style="padding-top: 20px;">
+					  	<center><img src="/static/images/feature-lightweight.png" /></center>
+					  	</div>
+						  <div class="circ"></div>
+						  <div class="events" style="background: #ED5565;color: white;">
+						  		<div class="arrow"></div>
+							  <div class="pull-left">
+								  <img class="events-object img-rounded" src="/static/images/thongbao.png">
+							  </div>
+							  <div class="events-body">
+								  <h4 class="events-heading">You have just completed an assignment! &#123;&#123; item.answerQuestion.questionUnit.unitName &#125;&#125;</h4>
+								  <p>Your score: <b style="font-size: 150%">&#123;&#123; item.answerScore &#125;&#125;</b></p>
+							  </div>
+						  </div>
+					  </dd>
+					  <dd class="pos-left clearfix" ng-show="$index%2!=0">
+						  <div class="circ"></div>
+						  <div class="events" style="border: 1px solid #3BAFDA;">
+							  <div class="pull-left">
+								  <img class="events-object img-rounded" src="/static/images/thongbao.png">
+							  </div>
+							  <div class="events-body">
+								  <h4 class="events-heading">You have just completed an assignment! &#123;&#123; item.answerQuestion.questionUnit.unitName &#125;&#125;</h4>
+								  <p>Your score: <b style="font-size: 150%">&#123;&#123; item.answerScore &#125;&#125;</b></p>
+							  </div>
+						  </div>
+						  <div class="col-md-6" style="padding-top: 20px;">
+					  	<center><img src="/static/images/feature-mobile.png" /></center>
+					  	</div>
+					  </dd>
+
+				  </dl>
+			  </div>
+		  </div>
+		</div>
+      </div>
+						  	</div>
+					</div>
+				</div>
+				
+				<div class='col-md-3'>
+				<div class="unit price-warning" style="background-color: #fffaed;" >
+							<div class="price-title" style="background-color: #ffce54; text-align: center;padding-top: 0.5%;padding-bottom: 1%; color: white;">
+								<h3>Average Score</h3>
+							</div>
+							<div class="price-body" style="text-align: center;">
+								<h4 style="font-size: 300%;">&#123;&#123;Average_Score&#125;&#125;</h4>
+								<ul>
+									<li>Name: &#123;&#123;user.last_name&#125;&#125; &#123;&#123;user.first_name&#125;&#125;</li>
+									<li>Class:</li>
+									<li></li>
+								</ul>
+							</div>
+							<div class="price-foot" style="padding: 20px;background-color: #e6e9ed;">
+								<center><button type="button" class="btn btn-warning">see more</button></center>
+							</div>
+						</div>
+			</div>
+			</div>
+			
+</article>

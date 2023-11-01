@@ -1,0 +1,129 @@
+{%extends 'base.html'%}
+{%block content%}
+<article class="top-contents" id="contents" style="padding-top:100px;">
+      <div class="container">
+			<div class="row lotus" style="margin-top:50px">
+				<div class="col-md-4">
+						
+				</div>
+				<div class="col-md-8">
+					<form class="form-horizontal" role="form" action="{% url 'signup'%}" method="post">
+					 <!-- <div class="form-group">
+						  <div class="col-sm-2"></div>
+						  <label class="col-sm-10 control-label splash" style="text-align: left;">Sign up</label>
+					  </div>
+					  <div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-10">
+						  <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email" >
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+						  <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="password" required="required">
+						</div>
+					  </div>-->
+					  {{contact_form.as_p}}
+					  <div class="form-group">
+						<label for="confirmPassword" class="col-sm-2 control-label">Confirm Password</label>
+						<div class="col-sm-10">
+						  <input type="password" class="form-control" id="confirmPassword" placeholder="confirm Password" name="confirmpassword" required="required">
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label for="username" class="col-sm-2 control-label">Firstname:</label>
+						<div class="col-md-4">
+						  <input type="text" class="form-control" placeholder="Firstname" id="username" name="firstname" required="required">
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label for="username" class="col-sm-2 control-label">Lastname:</label>
+						<div class="col-md-4">
+						  <input type="text" class="form-control" placeholder="Lastname" id="username" name="lastname" required="required">
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label for="birthday" class="col-sm-2 control-label">Gender:</label>
+						<div class="col-md-4">
+						 <label>Male:</label> <input type="radio" class="form-control" name="gender" value="1" checked="checked">
+						  <label>Female:</label><input type="radio" class="form-control"  name="gender" value="0">
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label for="birthday" class="col-sm-2 control-label">Birthday:</label>
+						<div class="col-md-4">
+						  <input type="date" class="form-control" placeholder="birthday" id="birthday" name="birthday" required="required"> 
+						</div>
+					  </div>
+					  
+					  <div class="col-sm-offset-1 col-sm-4" >
+						  <button type="submit" class="btn btn-default" style="float: right;width:100%;">Sign in</button>
+						</div>
+						
+					  </form>
+					</div>
+				</div>
+			</div>
+</article>
+<div class="container" style="margin-top: 30px;margin-bottom: 30px;color: #9999af;">
+      <!-- Example row of columns -->
+	  <div class="row">
+		<center><b><h2>Titanium have courses in</h2></b></center>
+	  </div>
+      <div class="row" >
+        <div class="col-md-4">
+          <center><p>
+		    <span class="flag-container"><span class="featured-language-flag egg"></span></span>
+			<p>English for Beginners</p>
+		  </p>
+          </center>
+        </div>
+        <div class="col-md-4">
+          <center><p>
+		    <span class="flag-container"><span class="featured-language-flag sp"></span></span>
+			<p>English for Specific Purposes</p>
+		  </p>
+          </center>
+       </div>
+        <div class="col-md-4">
+          <center><p>
+		    <span class="flag-container"><span class="featured-language-flag tc"></span></span>
+			<p>English for Beginners</p>
+		  </p>
+          </center>
+        </div>
+      </div>
+	  
+    </div> <!-- /container -->
+	<div class="section-features" style="padding-top: 50px;padding-bottom: 50px;min-height:250px">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+				<center><p>
+                    <span class="icon-duo-feature guide"></span>
+                    <p>Guide by experience teachers</p>
+				</p>
+				</center>
+				</div>
+				
+				<div class="col-md-4">
+				<center><p>
+                    <span class="icon-duo-feature heart"></span>
+                    <p>Always free</p>
+				</p>
+				</center>
+				</div>
+				
+				<div class="col-md-4">
+				<center><p>
+                    <span class="icon-duo-feature mobile"></span>
+                    <p>Ready on the go</p>
+				</p>
+				</center>
+				</div>
+			</div>
+		</div>
+	 </div>
+     </div>	
+{%endblock%}
